@@ -27,15 +27,15 @@ Development Support
 - CMake >= 3.16 (App Only)
 - CUDA Compatable GPU (Highly Recommended, Training Only)
 
+---
+
+### Setup
+
 Steps:
 
 1) Create a python virtual environment in project root directory called "venv"
 2) Run the setup script to initialize the git submodules, set up your venv, and copy some files from Tensorflow
 3) ???
 4) Proft
-
----
-
-### Setup
 
 ---
