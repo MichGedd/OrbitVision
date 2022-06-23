@@ -114,5 +114,5 @@ an error with protobuf, run `pip install --upgrade protobuf==3.20.1`.
 `OrbitVision/training/workspace/<project_name>`
 2) Place a zip file of your images in the `/images` folder and rename it to `imgs_orig.zip`. Unzip the folder to 
 `images/imgs`.
-
+3) 
 

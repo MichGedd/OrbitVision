@@ -23,5 +23,6 @@ def main(argv):
 
     print('generate_project.py --name=<project_name>')
 
+
 if __name__ == '__main__':
     main(sys.argv[1:])
