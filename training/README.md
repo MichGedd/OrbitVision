@@ -78,14 +78,12 @@ images, there might be a better way to do this.
 
 TODO - Write a description here
 
----
 
 ## Original Models
 
 The `/original_models` folder contains base models from the 
 [TF2 model zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf2_detection_zoo.md).
 
-___
 
 # Tutorial
 
@@ -109,10 +107,35 @@ this tutorial). Add `<PATH_TO_PROTOBUF>/bin` to Path. In a new terminal window, 
 an error with protobuf, run `pip install --upgrade protobuf==3.20.1`.
 
 ## Training
+Note - Currently this tutorial is aimed at SSD networks. Adjustments may be needed for other models.
+
 1) Create a new project by calling `python scripts/generate_project.py --name=<project name>` from the 
 `OrbitVision/training` directory. Until stated otherwise, all paths are assumed to be relative to 
 `OrbitVision/training/workspace/<project_name>`
 2) Place a zip file of your images in the `/images` folder and rename it to `imgs_orig.zip`. Unzip the folder to 
-`images/imgs`.
-3) 
+`images/imgs`. Note - You want as many annotations per object class as possible (an image with two objects of the same
+class count as two annotations), ideally over 1000 per object. You can totally get away with les than that (I've done 
+~200) but for competition do as many as possible. Idk, get the media team to do it for you or something.
+3) Run `python ../../scripts/pad_images.py` to pad all the images to a square.
+4) Run `labelImg` in the `images/imgs` directory to annotate all your images. Ensure you use Pascal VOC format.
+5) Run `python ../../scripts/partition_dataset.py` to partition the dataset into 90% train images and 10% test images
+6) Create a file in `/annotations` called `label_map.pbtxt`. A generic `label_map.pbtxt` is shown below. You must add
+an item for each object type you annoted. The `name` should be the name used in labelImg.  
 
+        item {
+            id: 1
+            name: 'object_name_1'
+        }
+        
+        item {
+            id: 2
+            name: 'object_name_2'
+        }
+        
+        item {
+            ...
+        }
+        
+        ...
+7) Run `python ../../scripts/create_tf_record.py` to create the `train.record` and `test.record` in `annotations/`
+8) 

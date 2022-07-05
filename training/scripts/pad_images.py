@@ -1,14 +1,13 @@
 import os
-import sys
-import getopt
 import glob
 import cv2 as cv
 
 
-def pad_images(img_dir):
-    os.chdir(img_dir)
+if __name__ == '__main__':
+    os.chdir('./images/imgs')
 
-    files = glob.glob('*.jpg') + glob.glob('*.png') + glob.glob('*.jpeg')
+    # NOTE - Only JPG files work
+    files = glob.glob('*.jpg')
     count = 0
     total = len(files)
 
@@ -28,21 +27,3 @@ def pad_images(img_dir):
         count += 1
         cv.imwrite(file, img)
         print(f'{count} of {total} images padded')
-
-
-def main(argv):
-    # TODO - Arguments
-    try:
-        opts, args = getopt.getopt(argv, '', ['img_dir='])
-    except getopt.GetoptError:
-        print('generate_project.py --img_dir=<project_name>')
-
-    for opt, arg in opts:
-        if opt == '--img_dir':
-            pad_images(arg)
-
-    print('generate_project.py --img_dir=<project_name>')
-
-
-if __name__ == '__main__':
-    main(sys.argv[1:])

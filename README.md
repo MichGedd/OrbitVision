@@ -34,8 +34,7 @@ Development Support
 Steps:
 
 1) Create a python virtual environment in project root directory called "venv"
-2) Run the setup script to initialize the git submodules, set up your venv, and copy some files from Tensorflow
-3) ???
-4) Proft
+2) `pip install -U pip`
+3) `pip install -U tensorflow==2.9.0 opencv-python=4.5.5.64 labelImg`
 
 ---

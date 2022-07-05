@@ -15,3 +15,6 @@ Copyright 2022 Google LLC. All rights reserved.
 The Initial Developer of the training/scripts/model_main_tf2.py,
 is Google LLC.
 Copyright 2022 Google LLC. All rights reserved.
+
+The file training/scripts/create_tf_record.py is a modified version of
+submodules/models/research/object_detection/dataset_tools/create_pascal_tf_record.py.
