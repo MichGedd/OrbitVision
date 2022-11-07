@@ -26,6 +26,7 @@ Development Support
 - Python >= 3.5 (Training Only)
 - CMake >= 3.16 (App Only)
 - CUDA Compatable GPU (Highly Recommended, Training Only)
+- Tensorflow 2.8
 
 ---
 

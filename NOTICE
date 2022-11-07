@@ -4,17 +4,27 @@ Copyright 2022 Oakville Community FIRST Robotics Team Inc.
 This product includes software developed at
 Oakville Community FIRST Robotics Team Inc. (https://1360.ca)
 
-The Initial Developer of the training/scripts/export_tflite_graph_tf2.py,
+The Initial Developer of training/scripts/export_tflite_graph_tf2.py,
 is Google LLC.
 Copyright 2022 Google LLC. All rights reserved.
+The file is licensed under Apache 2.0 License. A copy of the license can be found in submodules/models/LICENSE.
 
-The Initial Developer of the training/scripts/exporter_main_v2.py,
+The Initial Developer of training/scripts/exporter_main_v2.py,
 is Google LLC.
 Copyright 2022 Google LLC. All rights reserved.
+The file is licensed under Apache 2.0 License. A copy of the license can be found in submodules/models/LICENSE.
 
-The Initial Developer of the training/scripts/model_main_tf2.py,
+The Initial Developer of training/scripts/model_main_tf2.py,
 is Google LLC.
 Copyright 2022 Google LLC. All rights reserved.
+The file is licensed under Apache 2.0 License. A copy of the license can be found in submodules/models/LICENSE.
 
 The file training/scripts/create_tf_record.py is a modified version of
 submodules/models/research/object_detection/dataset_tools/create_pascal_tf_record.py.
+The file is licensed under Apache 2.0 License. A copy of the license can be found in submodules/models/LICENSE.
+
+The Initial Developer of training/original_models,
+is Google LLC.
+Copyright 2022 Google LLC. All rights reserved.
+The files are licensed under Apache 2.0 License. A copy of the license can be found in submodules/models/LICENSE.
+
