@@ -30,7 +30,7 @@ int main() {
 
 	//unique_ptr<tflite::FlatBufferModel> model = tflite::FlatBufferModel::BuildFromFile("../inference/model_320x320.tflite");
 	cout << "Start of program" << endl;
-	unique_ptr<tflite::FlatBufferModel> model = tflite::FlatBufferModel::BuildFromFile("../coral_test/FRC_2022_nofpn_edgetpu.tflite");
+	unique_ptr<tflite::FlatBufferModel> model = tflite::FlatBufferModel::BuildFromFile("../coral_test/FRC_2022_nofpn_edgetpu.tflite"); // Make sure paths are correct
 	cout << "Found model" << endl;
 	shared_ptr<edgetpu::EdgeTpuContext> edgetpu_context = edgetpu::EdgeTpuManager::GetSingleton()->OpenDevice(); // New
 
