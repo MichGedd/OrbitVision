@@ -52,6 +52,7 @@ exported_models
         |   pipeline.config
     |   model_name.tflite
     |   model_name_PTIQ.tflite
+    |   model_name_edgetpu.tflite
 |___model_name_2
     |   ...
 ```
@@ -119,7 +120,7 @@ class count as two annotations), ideally over 1000 per object. You can totally g
 3) Run `python ../../scripts/pad_images.py` to pad all the images to a square.
 4) Run `labelImg` in the `images/imgs` directory to annotate all your images. Ensure you use Pascal VOC format.
 5) Run `python ../../scripts/partition_dataset.py` to partition the dataset into 90% train images and 10% test images
-6) Create a file in `/annotations` called `label_map.pbtxt`. A generic `label_map.pbtxt` is shown below. You must add
+6) Create a file in `annotations/` called `label_map.pbtxt`. A generic `label_map.pbtxt` is shown below. You must add
 an item for each object type you annoted. The `name` should be the name used in labelImg.  
 
         item {
@@ -137,5 +138,52 @@ an item for each object type you annoted. The `name` should be the name used in 
         }
         
         ...
+        
 7) Run `python ../../scripts/create_tf_record.py` to create the `train.record` and `test.record` in `annotations/`
-8) 
+8) Copy a model from `original_models/` into `models/`. Delete everything inside `models/<copied model name>/` except for
+the `pipeline.config` file.
+9) Edit the `pipeline.config` file in the following areas:
+    1) Change `num_classes` to the number of items in your `label_map.pbtxt`
+    2) Change `fine_tune_checkpoint` to `../../original_models/<original model name>/checkpoint/ckpt-0`
+    3) Change `fine_tune_checkpoint_type` to `detection`
+    4) Change `label_map_path` to `annotations/label_map.pbtxt` (Theres two of them).
+    5) Change `input_path` to `annotations/train.record` for `train_input_reader` and `annotations/test.record` for
+    `eval_input_reader`
+10) Run `python ../../scripts/model_main_tf2.py --model_dir=models/<model name> --pipeline_config_path=models/<model name>/pipeline.confg`.
+Monitor the training process by running `tensorboard --logdir=models/<model name>`
+
+## Evaluating
+
+To evaluate the model, run `python ../../scripts/model_main_tf2.py --model_dir=models/<model name> --pipeline_config_path=models/<model name>/pipeline.confg
+--checkpoint_dir=models/<model name>`. Its a good idea to run the model for a low number of training steps (10k for example)
+and then evaluating the model to make sure training is going as expected. If the initial evaluation looks ok, rerun the model
+for the full training steps.
+
+## Exporting for TFLite (TODO)
+
+This currently only works for SSD-based models. 
+
+1) Export the model running export_tflite_graph_tf2.py
+2) Create the .tflite for the PTIQ and non-PTIQ versions using convert_to_tflite.py
+3) Use tflite_model_validate to figure out the equation needed for generating bounding boxes (This converts the [0, 255]
+range of the output to [0, 1], which is then multiplied by the input dimensions to get the pixel location
+of the bounding box)
+
+## Exporting for Edge TPU (TODO)
+
+Instructions from Coral docs [can be found here](https://coral.ai/docs/edgetpu/compiler/). Use the Edge TPU Compiler to compile the PTIQ .tflite model. You must be running 64-bit Debian 6.0 and be on x86-64
+architecture (If you don't have a linux system on hand use Ubuntu 20.04 for WSL).  Install the compiler by running the 
+following:
+
+```shell script
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+echo "deb https://packages.cloud.google.com/apt coral-edgetpu-stable main" | sudo tee /etc/apt/sources.list.d/coral-edgetpu.list
+sudo apt-get update
+sudo apt-get install edgetpu-compiler
+``` 
+
+Next, export the model by running the following:
+
+```shell script
+edgetpu_compiler <model name>.tflite
+```
