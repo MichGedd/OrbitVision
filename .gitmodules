@@ -7,3 +7,6 @@
 [submodule "submodules/libedgetpu"]
 	path = submodules/libedgetpu
 	url = https://github.com/google-coral/libedgetpu.git
+[submodule "submodules/allwpilib"]
+	path = submodules/allwpilib
+	url = https://github.com/wpilibsuite/allwpilib.git
