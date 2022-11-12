@@ -107,6 +107,10 @@ this tutorial). Add `<PATH_TO_PROTOBUF>/bin` to Path. In a new terminal window, 
 3) Run `python object_detection/builders/model_builder_tf2_test.py` to confirm that everything is working. If you have
 an error with protobuf, run `pip install --upgrade protobuf==3.20.1`.
 
+Troubleshooting: 
+1) If you encounter issues with installing pycocotools with a Microsoft Visual C++ compilation error, you can workaround this by using anaconda and getting it from conda-forge; use the command `conda install pycocotools -c conda-forge' 
+2) Protobuf <= 3.20.1 does have a builder.py file included (which is needed to run the Object Detection API). To solve this, install the latest protobuf release (i.e. 4.21.9), `cd ...\Lib\site-packages\google\protobuf\internal`, `copy builder.py %HOMEPATH%`, reinstall the protobuf release you started with, and `move %HOMEPATH%\builder.py ...\Lib\site-packages\google\protobuf\internal` (complete the dots for the appropriate path)
+
 ## Training
 Note - Currently this tutorial is aimed at SSD networks. Adjustments may be needed for other models.
 

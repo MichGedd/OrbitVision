@@ -13,7 +13,7 @@ def main(argv):
     for opt, arg in opts:
         if opt == '--name':
             print(f'Creating new project, {arg}')
-            os.mkdir(f'./workspace/{arg}')
+            os.makedirs(f'./workspace/{arg}')
             os.chdir(f'./workspace/{arg}')
             os.mkdir('./annotations')
             os.mkdir('./models')
