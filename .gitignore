@@ -2,3 +2,4 @@ venv/
 .idea/
 training/workspace/*
 build/*
+external_build/*
