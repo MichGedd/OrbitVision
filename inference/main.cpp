@@ -8,6 +8,8 @@
 #include <tensorflow/lite/kernels/register.h>
 #include <tensorflow/lite/model.h>
 #include <tensorflow/lite/optional_debug_tools.h>
+#include <networktables/NetworkTableInstance.h>
+#include <networktables/NetworkTable.h>
 
 #include <string>
 
@@ -16,6 +18,7 @@
 using namespace std;
 using namespace cv;
 using namespace std::chrono;
+using namespace nt;
 
 int main() {
 	Mat frame;
@@ -92,6 +95,14 @@ int main() {
 
 	cout << "Set camera properties" << endl;
 
+	cout << "Starting NetworkTable setup";
+	NetworkTableInstance inst = NetworkTableInstance::GetDefault();
+	inst.SetUpdateRate(0.01);
+	inst.StartClientTeam(1360);
+	shared_ptr<NetworkTable> table = inst.GetTable("OrbitVision");
+
+	// We should probably have a sleep here to make sure we can get the NetworkTable
+
 	while(1) {
 
 		auto start = system_clock::now();
@@ -105,12 +116,14 @@ int main() {
 		int dimX = frame.rows;
 		int dimY = frame.cols;
 
-		if(dimX >= dimY) {
+		if(dimX > dimY) {
 			int diff = dimX - dimY;
 			copyMakeBorder(frame, framePreProcess, 0, diff, 0, 0, BORDER_CONSTANT, Scalar(0, 0, 0));
 		} else if (dimY > dimX) {
 			int diff = dimY - dimX;
 			copyMakeBorder(frame, framePreProcess, 0, 0, 0, diff, BORDER_CONSTANT, Scalar(0, 0, 0));
+		} else {
+			framePreProcess = frame.clone();
 		}
 		// resize(framePreProcess, framePreProcess, Size(640, 640), INTER_AREA);
 		resize(framePreProcess, framePreProcess, Size(300, 300), INTER_AREA);
