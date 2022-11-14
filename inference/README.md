@@ -51,4 +51,5 @@ libcamerify ./Orbit_Vision
 
 - make sure libgl1-mesa-dev, libxinerama-dev, libxcursor-dev, libxi-dev, libxrandr-dev and libssh-dev are installed via apt (may not need to do this)
 - If you get a 403 error when downloading Khronos OpenGL libraries, change the URL to the registery.khronos version rather than khronos.org/registry (probably don't need to do this)
-- cmake -DWITH_JAVA=OFF -DWITH_TESTS=OFF -DWITH_CSCORE=OFF -DWITH_WPIMATH=OFF -DWITH_SIMULATION_MODULES=OFF -DWITH_GUI=OFF
+- cmake -DWITH_JAVA=OFF -DWITH_TESTS=OFF -DWITH_CSCORE=OFF -DWITH_WPIMATH=OFF -DWITH_SIMULATION_MODULES=OFF -DWITH_GUI=OFF -DCMAKE_install_prefix=<something here>
+- Make sure CMake points to the installed path for NetworkTables
