@@ -46,3 +46,9 @@ libcamerify ./Orbit_Vision
 - Change the executable name from `OrbitVision` to `Orbit_Vision`
 - Add WPILib stuff for interfacing with NetworkTables 
 - Figure out cross compiling for aarch64
+
+## WPILib
+
+- make sure libgl1-mesa-dev, libxinerama-dev, libxcursor-dev, libxi-dev, libxrandr-dev and libssh-dev are installed via apt (may not need to do this)
+- If you get a 403 error when downloading Khronos OpenGL libraries, change the URL to the registery.khronos version rather than khronos.org/registry (probably don't need to do this)
+- cmake -DWITH_JAVA=OFF -DWITH_TESTS=OFF -DWITH_CSCORE=OFF -DWITH_WPIMATH=OFF -DWITH_SIMULATION_MODULES=OFF -DWITH_GUI=OFF
